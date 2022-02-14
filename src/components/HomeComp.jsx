@@ -928,12 +928,12 @@ function HomeComp({ user }) {
       recentEventOne: recentEventOne || {
         name: "",
         date: "",
-        attendance: 1,
+        attendance: 0,
       },
       recentEventTwo: recentEventTwo || {
         name: "",
         date: "",
-        attendance: 1,
+        attendance: 0,
       },
     };
     return recentData;
