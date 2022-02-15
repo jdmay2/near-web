@@ -899,9 +899,9 @@ function HomeComp({ user }) {
           date: event.date ? moment(event.date).format("MMM Do") : "",
           attendance: event.roster
             ? event.roster.length === 0
-              ? 1
+              ? 0
               : event.roster.length
-            : 1,
+            : 0,
         };
       })[0];
     const recentEventTwo = dataThisYear
@@ -919,9 +919,9 @@ function HomeComp({ user }) {
           date: event.date ? moment(event.date).format("MMM Do") : "",
           attendance: event.roster
             ? event.roster.length === 0
-              ? 1
+              ? 0
               : event.roster.length
-            : 1,
+            : 0,
         };
       })[1];
     const recentData = {
