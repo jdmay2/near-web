@@ -60,344 +60,84 @@ function HomeComp({ user }) {
     return moment(event.date).year() === moment().year();
   });
 
+  const dataThisMonth = (month) => {
+    return {
+      Start:
+        dataThisYear
+          .filter((event) => {
+            return (
+              moment(event.date).month() === month &&
+              moment(event.date).day() <
+                Math.floor(moment(event.date).daysInMonth() / 2)
+            );
+          })
+          .map((event) => {
+            return event.roster.length;
+          })
+          .reduce((a, b) => a + b, 0) || 0,
+      End:
+        dataThisYear
+          .filter((event) => {
+            return (
+              moment(event.date).month() === month &&
+              moment(event.date).day() >=
+                Math.floor(moment(event.date).daysInMonth() / 2)
+            );
+          })
+          .map((event) => {
+            return event.roster.length;
+          })
+          .reduce((a, b) => a + b, 0) || 0,
+    };
+  };
+
+  const dataThisMonthAIMS = (month) => {
+    return {
+      Start:
+        dataThisYear
+          .filter((event) => {
+            return (
+              moment(event.date).month() === month &&
+              moment(event.date).day() <
+                Math.floor(moment(event.date).daysInMonth() / 2) &&
+              event.courseId === "bbl-cid-20000001"
+            );
+          })
+          .map((event) => {
+            return event.roster.length;
+          })
+          .reduce((a, b) => a + b, 0) || 0,
+      End:
+        dataThisYear
+          .filter((event) => {
+            return (
+              moment(event.date).month() === month &&
+              moment(event.date).day() >=
+                Math.floor(moment(event.date).daysInMonth() / 2) &&
+              event.courseId === "bbl-cid-20000001"
+            );
+          })
+          .map((event) => {
+            return event.roster.length;
+          })
+          .reduce((a, b) => a + b, 0) || 0,
+    };
+  };
+
   const distinctData = () => {
     const dataByMonth = {
-      Jan: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 0 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 0 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Feb: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 1 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 1 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Mar: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 2 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 2 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Apr: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 3 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 3 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      May: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 4 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 4 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Jun: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 5 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 5 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Jul: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 6 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 6 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Aug: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 7 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 7 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Sep: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 8 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 8 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Oct: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 9 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 9 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Nov: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 10 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 10 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Dec: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 11 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 11 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2)
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
+      Jan: dataThisMonth(0),
+      Feb: dataThisMonth(1),
+      Mar: dataThisMonth(2),
+      Apr: dataThisMonth(3),
+      May: dataThisMonth(4),
+      Jun: dataThisMonth(5),
+      Jul: dataThisMonth(6),
+      Aug: dataThisMonth(7),
+      Sep: dataThisMonth(8),
+      Oct: dataThisMonth(9),
+      Nov: dataThisMonth(10),
+      Dec: dataThisMonth(11),
       min:
         dataThisYear
           .map((event) => {
@@ -425,366 +165,18 @@ function HomeComp({ user }) {
 
   const distinctAIMSData = () => {
     const dataByMonth = {
-      Jan: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 0 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 0 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Feb: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 1 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 1 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Mar: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 2 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 2 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Apr: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 3 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 3 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      May: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 4 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 4 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Jun: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 5 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 5 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Jul: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 6 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 6 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Aug: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 7 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 7 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Sep: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 8 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 8 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Oct: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 9 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 9 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Nov: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 10 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 10 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
-      Dec: {
-        Start:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 11 &&
-                moment(event.date).day() <
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-        End:
-          dataThisYear
-            .filter((event) => {
-              return (
-                moment(event.date).month() === 11 &&
-                moment(event.date).day() >=
-                  Math.floor(moment(event.date).daysInMonth() / 2) &&
-                event.courseId === "bbl-cid-20000001"
-              );
-            })
-            .map((event) => {
-              return event.roster.length;
-            })
-            .reduce((a, b) => a + b, 0) || 0,
-      },
+      Jan: dataThisMonthAIMS(0),
+      Feb: dataThisMonthAIMS(1),
+      Mar: dataThisMonthAIMS(2),
+      Apr: dataThisMonthAIMS(3),
+      May: dataThisMonthAIMS(4),
+      Jun: dataThisMonthAIMS(5),
+      Jul: dataThisMonthAIMS(6),
+      Aug: dataThisMonthAIMS(7),
+      Sep: dataThisMonthAIMS(8),
+      Oct: dataThisMonthAIMS(9),
+      Nov: dataThisMonthAIMS(10),
+      Dec: dataThisMonthAIMS(11),
       min: {
         Early:
           dataThisYear
@@ -1024,13 +416,17 @@ function HomeComp({ user }) {
     return Math.round(
       ((recentAIMSData().recentEventOne.attendance -
         recentAIMSData().recentEventTwo.attendance) /
-        recentAIMSData().recentEventOne.attendance) *
+        (recentAIMSData().recentEventOne.attendance === 0
+          ? 1
+          : recentAIMSData().recentEventOne.attendance)) *
         100
     )
       ? Math.round(
           ((recentAIMSData().recentEventOne.attendance -
             recentAIMSData().recentEventTwo.attendance) /
-            recentAIMSData().recentEventOne.attendance) *
+            (recentAIMSData().recentEventOne.attendance === 0
+              ? 1
+              : recentAIMSData().recentEventOne.attendance)) *
             100
         )
       : 0;
